@@ -46,11 +46,20 @@ void play_game(GameState game) {
                 game.score_this_turn+=dieroll;
                 cout<<"Die: "<<dieroll<<"- Running score this turn: "<<game.score_this_turn<<endl;
             }
-            cout<<"roll or hold? (r/h): ";
-            cin>> game.choice;
+            game.choice = 'a';
+            while (game.choice != 'h' && game.choice != 'r') {
+                cout<<"roll or hold? (r/h): ";
+                cin>> game.choice;
+            }
         }
         cout<<"Score Banked This Turn: "<<game.score_this_turn<<endl;
         game.game_score+=game.score_this_turn;
+
+        if (game.game_score >= 20) {
+            cout<<endl<<"You finished with a final score of "<<game.game_score<<" in "<<game.turn_count<<" turns!"<<endl;
+            cout<<"Thanks for playing PIG Dice!"<<endl;
+            break;
+        }
 
     }
 }
