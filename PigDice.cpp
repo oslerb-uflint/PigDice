@@ -22,44 +22,53 @@ void display_rules() {
 
 }
 
-int roll() {
-    int num;
-    num = (rand()%6)+1;
-    return num;
+void hold(GameState &game) {
+    cout<<"Score Banked This Turn: "<<game.score_this_turn<<endl;
+    game.game_score+=game.score_this_turn;
+
+    if (game.game_score >= 20) {
+        cout<<endl<<"You finished with a final score of "<<game.game_score<<" in "<<game.turn_count<<" turns!"<<endl;
+        cout<<"Thanks for playing PIG Dice!"<<endl;
+        game.game_over=true;
+    }
 }
 
-void play_game(GameState game) {
-    while (game.game_score < 20) {
-        game.score_this_turn = 0; game.turn_count++;
-        cout<<endl<<"TURN "<<game.turn_count<<" - Game Score: "<<game.game_score<<endl;
+
+void get_choice(GameState &game) {
+    game.choice = 'a';
+    while (game.choice != 'h' && game.choice != 'r') {
         cout<<"roll or hold? (r/h): ";
         cin>> game.choice;
-        while (game.choice != 'h') {
-            int dieroll = roll();
-            if (dieroll == 1) {
-                cout<< "Die: 1"<<endl;
-                cout<<"Turn over. No score."<<endl;
-                game.score_this_turn=0;
-                break;
-            }
-            else {
-                game.score_this_turn+=dieroll;
-                cout<<"Die: "<<dieroll<<"- Running score this turn: "<<game.score_this_turn<<endl;
-            }
-            game.choice = 'a';
-            while (game.choice != 'h' && game.choice != 'r') {
-                cout<<"roll or hold? (r/h): ";
-                cin>> game.choice;
-            }
-        }
-        cout<<"Score Banked This Turn: "<<game.score_this_turn<<endl;
-        game.game_score+=game.score_this_turn;
+    }
+}
 
-        if (game.game_score >= 20) {
-            cout<<endl<<"You finished with a final score of "<<game.game_score<<" in "<<game.turn_count<<" turns!"<<endl;
-            cout<<"Thanks for playing PIG Dice!"<<endl;
-            break;
+
+void roll(GameState &game) {
+    int dieroll;
+    dieroll = (rand()%6)+1;
+    if (dieroll == 1) {
+        cout<< "Die: 1"<<endl;
+        cout<<"Turn over. No score."<<endl;
+        game.score_this_turn=0;
+        game.turn_over = true;
+    }
+    else {
+        game.score_this_turn+=dieroll;
+        cout<<"Die: "<<dieroll<<"- Running score this turn: "<<game.score_this_turn<<endl;
+    }
+}
+
+void play_game(GameState &game) {
+    while (not game.game_over) {
+        game.score_this_turn = 0; game.turn_count++;
+        cout<<endl<<"TURN "<<game.turn_count<<" - Game Score: "<<game.game_score<<endl;
+        get_choice(game);
+        while (game.choice != 'h'&& game.turn_over == false) {
+            roll(game);
+            get_choice(game);
         }
+
+        hold(game);
 
     }
 }
