@@ -25,6 +25,7 @@ void display_rules() {
 void hold(GameState &game) {
     cout<<"Score Banked This Turn: "<<game.score_this_turn<<endl;
     game.game_score+=game.score_this_turn;
+    game.turn_over = false;
 
     if (game.game_score >= 20) {
         cout<<endl<<"You finished with a final score of "<<game.game_score<<" in "<<game.turn_count<<" turns!"<<endl;
@@ -39,6 +40,9 @@ void get_choice(GameState &game) {
     while (game.choice != 'h' && game.choice != 'r') {
         cout<<"roll or hold? (r/h): ";
         cin>> game.choice;
+        if (game.choice != 'h' && game.choice != 'r') {
+            cout<<"You did not enter a valid choice!, please enter r or h"<<endl;
+        }
     }
 }
 
@@ -65,6 +69,9 @@ void play_game(GameState &game) {
         get_choice(game);
         while (game.choice != 'h'&& game.turn_over == false) {
             roll(game);
+            if (game.turn_over == true) {
+                break;
+            }
             get_choice(game);
         }
 
