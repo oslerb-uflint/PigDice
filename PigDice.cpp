@@ -1,9 +1,58 @@
 #include <iostream>
-#include <ctime>
+#include <random>
 using namespace std;
-    // Build your solution starting from this code.
+
+
+class Die {
+    int m_dieValue;
+    int m_numSides;
+    uniform_int_distribution<int> m_distribution;
+    mt19937 m_gen;
+public:
+    Die() {
+        m_dieValue = 0;
+        m_numSides = 6;
+        random_device rd;
+        m_gen = mt19937(rd());
+        m_distribution = uniform_int_distribution<int>(1,m_numSides);
+    }
+
+    void setNumSides(int numSides) {
+        switch (numSides) {
+            case 2:
+                m_numSides = 2;
+                break;
+            case 4:
+                m_numSides = 4;
+                break;
+            case 8:
+                m_numSides = 8;
+                break;
+            case 12:
+                m_numSides = 12;
+                break;
+            default:
+                m_numSides = 6;
+        }
+        m_distribution = uniform_int_distribution<int>(1,m_numSides);
+    };
+
+    int getNumSides() {
+        return m_numSides;
+    }
+
+    void rollDie() {
+        m_dieValue = m_distribution(m_gen);
+    }
+    int getValue() {
+        return m_dieValue;
+    }
+};
+
+
 
 struct GameState {
+    Die dieObject;
     char choice;
     int turn_count = 0;
     int game_score = 0;
@@ -41,6 +90,7 @@ void get_choice(GameState &game) {
         cout<<"roll or hold? (r/h): ";
         cin>> game.choice;
         if (game.choice != 'h' && game.choice != 'r') {
+            game.dieObject.setNumSides(8);
             cout<<"You did not enter a valid choice!, please enter r or h"<<endl;
         }
     }
@@ -48,8 +98,8 @@ void get_choice(GameState &game) {
 
 
 void roll(GameState &game) {
-    int dieroll;
-    dieroll = (rand()%6)+1;
+    game.dieObject.rollDie();
+    int dieroll = game.dieObject.getValue();
     if (dieroll == 1) {
         cout<< "Die: 1"<<endl;
         cout<<"Turn over. No score."<<endl;
@@ -82,7 +132,6 @@ void play_game(GameState &game) {
 
 
 int main() {
-    srand(time(NULL));
     GameState my_game; // instantiate a GameState object
     display_rules(); // call the display_rules function
     play_game(my_game); // call the play_game function and pass the GameState object
