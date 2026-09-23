@@ -1,0 +1,6 @@
+Here, I will add some commentary about my development process.
+
+Misc Assignment 1 stage: I wanted to try playing around with making the random number generation less resource intensive and use less lines of code. 
+In this version I created the generator and distribution objects and assigned them to member variables in the Die class. This way, there wouldn't need
+to be a new generator and new distribution created every time a random number is needed. I create a new distribution whenever the number of sides of 
+the die is changed.
