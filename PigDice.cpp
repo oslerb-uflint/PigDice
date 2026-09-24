@@ -90,7 +90,6 @@ void get_choice(GameState &game) {
         cout<<"roll or hold? (r/h): ";
         cin>> game.choice;
         if (game.choice != 'h' && game.choice != 'r') {
-            game.dieObject.setNumSides(8);
             cout<<"You did not enter a valid choice!, please enter r or h"<<endl;
         }
     }
