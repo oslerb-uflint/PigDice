@@ -1,5 +1,5 @@
 #include <iostream>
-#include <random>
+#include "DIE.h"
 using namespace std;
 
 
