@@ -4,15 +4,19 @@ using namespace std;
 
 
 
-struct GameState {
+struct PigDiceGame {
     Die dieObject;
     char choice;
     int turn_count = 0;
-    int game_score = 0;
+    int m_gameScore = 0;
     int score_this_turn = 0;
-    bool game_over = false;
+    bool m_gameOver = false;
     bool turn_over = false;
 };
+
+
+
+
 
 void display_rules() {
     cout << "Let's Play PIG Dice!"<<endl<<endl;
@@ -24,20 +28,20 @@ void display_rules() {
 
 }
 
-void hold(GameState &game) {
+void hold(PigDiceGame &game) {
     cout<<"Score Banked This Turn: "<<game.score_this_turn<<endl;
-    game.game_score+=game.score_this_turn;
+    game.m_gameScore+=game.score_this_turn;
     game.turn_over = false;
 
-    if (game.game_score >= 20) {
-        cout<<endl<<"You finished with a final score of "<<game.game_score<<" in "<<game.turn_count<<" turns!"<<endl;
+    if (game.m_gameScore >= 20) {
+        cout<<endl<<"You finished with a final score of "<<game.m_gameScore<<" in "<<game.turn_count<<" turns!"<<endl;
         cout<<"Thanks for playing PIG Dice!"<<endl;
-        game.game_over=true;
+        game.m_gameOver=true;
     }
 }
 
 
-void get_choice(GameState &game) {
+void get_choice(PigDiceGame &game) {
     game.choice = 'a';
     while (game.choice != 'h' && game.choice != 'r') {
         cout<<"roll or hold? (r/h): ";
@@ -49,7 +53,7 @@ void get_choice(GameState &game) {
 }
 
 
-void roll(GameState &game) {
+void roll(PigDiceGame &game) {
     game.dieObject.rollDie();
     int dieroll = game.dieObject.getValue();
     if (dieroll == 1) {
@@ -64,10 +68,10 @@ void roll(GameState &game) {
     }
 }
 
-void play_game(GameState &game) {
-    while (not game.game_over) {
+void play_game(PigDiceGame &game) {
+    while (not game.m_gameOver) {
         game.score_this_turn = 0; game.turn_count++;
-        cout<<endl<<"TURN "<<game.turn_count<<" - Game Score: "<<game.game_score<<endl;
+        cout<<endl<<"TURN "<<game.turn_count<<" - Game Score: "<<game.m_gameScore<<endl;
         get_choice(game);
         while (game.choice != 'h'&& game.turn_over == false) {
             roll(game);
@@ -84,7 +88,7 @@ void play_game(GameState &game) {
 
 
 int main() {
-    GameState my_game; // instantiate a GameState object
+    PigDiceGame my_game; // instantiate a GameState object
     display_rules(); // call the display_rules function
     play_game(my_game); // call the play_game function and pass the GameState object
     return 0;

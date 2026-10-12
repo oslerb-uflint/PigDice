@@ -13,10 +13,6 @@ class Die {
 public:
     Die();
 
-    void setNumSides(int numSides);
-
-    int getNumSides();
-
     void rollDie();
 
     int getValue();
