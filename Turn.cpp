@@ -3,7 +3,8 @@
 //
 
 #include "Turn.h"
-#include "Die.h"
+#include "DIE.h"
+#include "PigDiceGame.h"
 #include <iostream>
 using namespace std;
 
@@ -13,12 +14,13 @@ Turn::Turn() {
     m_turnOver = false;
     m_choice = 'a';
     m_die = Die();
+    m_gamePointer = nullptr;
 }
 
-void Turn::takeTurn(int GameScore) {
+void Turn::takeTurn() {
     m_scoreThisTurn = 0;
     m_turnCount++;
-    cout<<endl<<"TURN "<<m_turnCount<<" - Game Score: "<<GameScore<<endl;
+    cout<<endl<<"TURN "<<m_turnCount<<" - Game Score: "<<getCurrentGameScore()<<endl;
     while (m_turnOver == false) {
         getChoice();
         if (m_choice=='r') {
@@ -32,6 +34,15 @@ void Turn::takeTurn(int GameScore) {
 
 int Turn::getScoreThisTurn() {
     return m_scoreThisTurn;
+}
+
+int Turn::getCurrentGameScore() {
+    int score = m_gamePointer->getGameScore();
+    return score;
+}
+
+void Turn::setGamePointer(PigDiceGame* gamePointer) {
+    m_gamePointer = gamePointer;
 }
 
 void Turn::resetTurnOver() {

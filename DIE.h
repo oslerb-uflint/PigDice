@@ -6,7 +6,6 @@ using namespace std;
 
 class Die {
     int m_dieValue;
-    int m_numSides;
     uniform_int_distribution<int> m_distribution;
     mt19937 m_gen;
 

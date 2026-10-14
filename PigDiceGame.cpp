@@ -9,6 +9,7 @@ using namespace std;
 
 PigDiceGame::PigDiceGame() {
     m_turn = Turn();
+    m_turn.setGamePointer(this);
     m_gameScore = 0;
     m_gameOver = false;
     playGame();
@@ -26,13 +27,17 @@ void PigDiceGame::playGame() {
     displayRules();
     while (m_gameOver == false) {
         m_turn.resetTurnOver();
-        m_turn.takeTurn(m_gameScore);
+        m_turn.takeTurn();
         m_gameScore += m_turn.getScoreThisTurn();
         if (m_gameScore >= 20) {
             m_gameOver = true;
         }
     }
     endGame();
+}
+
+int PigDiceGame::getGameScore() {
+    return m_gameScore;
 }
 
 

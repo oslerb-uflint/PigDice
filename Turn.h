@@ -6,6 +6,7 @@
 #define PIGDICE_TURN_H
 #include "DIE.h"
 
+class PigDiceGame;
 
 class Turn {
     private:
@@ -14,16 +15,19 @@ class Turn {
         bool m_turnOver;
         char m_choice;
         Die m_die;
+        PigDiceGame* m_gamePointer;
     public:
         Turn();
-        void takeTurn(int GameScore);
+        void takeTurn();
         int getScoreThisTurn();
         void resetTurnOver();
         int getTurnCount();
+        void setGamePointer(PigDiceGame* gamePointer);
     private:
         void roll();
         void hold();
         void getChoice();
+        int getCurrentGameScore();
 
 };
 

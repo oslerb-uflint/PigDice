@@ -14,6 +14,7 @@ class PigDiceGame {
 
     public:
         PigDiceGame();
+        int getGameScore();
     private:
         void displayRules();
         void playGame();
