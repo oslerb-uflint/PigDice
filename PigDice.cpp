@@ -1,9 +1,10 @@
 #include "PigDiceGame.h"
 using namespace std;
+#include "MultiplayerOverseer.h"
 
 
 int main() {
-    PigDiceGame game;
+    MultiplayerOverseer overseer;
 }
 
 
