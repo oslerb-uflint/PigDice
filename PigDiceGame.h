@@ -7,17 +7,17 @@
 #include "Turn.h"
 
 class PigDiceGame {
-    private:
+    protected:
         Turn m_turn;
-        int m_gameScore;
         bool m_gameOver;
-
+        int m_gameScore;
     public:
         PigDiceGame();
         int getGameScore();
+    protected:
+        void playGame();
     private:
         void displayRules();
-        void playGame();
         void endGame();
 
 };

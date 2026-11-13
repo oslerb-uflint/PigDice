@@ -20,7 +20,7 @@ Turn::Turn() {
 void Turn::takeTurn() {
     m_scoreThisTurn = 0;
     m_turnCount++;
-    cout<<endl<<"TURN "<<m_turnCount<<" - Game Score: "<<getCurrentGameScore()<<endl;
+    //cout<<endl<<"TURN "<<m_turnCount<<" - Game Score: "<<getCurrentGameScore()<<endl;
     while (m_turnOver == false) {
         getChoice();
         if (m_choice=='r') {

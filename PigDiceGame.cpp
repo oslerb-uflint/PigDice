@@ -12,7 +12,6 @@ PigDiceGame::PigDiceGame() {
     m_turn.setGamePointer(this);
     m_gameScore = 0;
     m_gameOver = false;
-    playGame();
 }
 
 void PigDiceGame::displayRules() {
