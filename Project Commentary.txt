@@ -1,6 +1,19 @@
 Here, I will add some commentary about my development process.
 
-Misc Assignment 1 stage: I wanted to try playing around with making the random number generation less resource intensive and use less lines of code. 
+Misc Assignment 1 stage:
+
+ I wanted to try playing around with making the random number generation less resource intensive and use less lines of code. 
 In this version I created the generator and distribution objects and assigned them to member variables in the Die class. This way, there wouldn't need
 to be a new generator and new distribution created every time a random number is needed. I create a new distribution whenever the number of sides of 
 the die is changed.
+
+
+Pig Dice Multiplayer Stage:
+
+I overrode the less than operator (<) in the PDGameV2 class to be able to compare 2 PDGameV2 classes. The functionality is such that a PDGameV2 
+object is less than another if the game score is less than the game score of the second game object. This allows the vector of PDGameV2 objects to be sorted,
+where the lowest scoring games are in the first spot and the highest scoring games are in the last spot. This is how I find all of the winners at the end of the competition.
+
+I have a lot of background in Python, and operator overloading and sorting algorithms are both things that I have programmed in python. This is where this idea came from.
+
+Also, I have left in the UML diagram from the Pig Dice 2 stage, the new UML diagram is named PigDiceMultiplayerUML.png
